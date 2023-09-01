@@ -21,7 +21,7 @@ const tasks: string[] = ["Clean the bathroom", "Wash the dishes"];
 
 const CollectionCard = ({ collection }: CollectionCardProps) => {
     const [isOpen, setIsOpen] = useState(true)
-    const [isLoading, startTransition] = useTransition()
+    const [isLoading, startTransition] = useTransition();
     const router = useRouter()
 
     const removeCollection = async () => {
@@ -68,26 +68,29 @@ const CollectionCard = ({ collection }: CollectionCardProps) => {
             <Separator />
             <footer className="h-[40px] px-4 p-[2px] text-xs text-neutral-500 flex justify-between items-center">
                 <p>Created at {collection.createdAt.toDateString()}</p>
-                <div>
-                    <Button size="icon" variant="ghost"><PlusIcon /></Button>
-                    <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                            <Button size="icon" variant="ghost"><TrashIcon /></Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogTitle>Are you sure you want to delete this?</AlertDialogTitle>
-                            <AlertDialogDescription>This action cannot be undone. This will permanently delete your collection and all subsequent tasks</AlertDialogDescription>
-                            <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                    onClick={() => {
-                                        removeCollection();
-                                    }}
-                                >Proceed</AlertDialogAction>
-                            </AlertDialogFooter>
-                        </AlertDialogContent>
-                    </AlertDialog>
-                </div>
+                {isLoading && <div>Deleting...</div>}
+                {!isLoading && (
+                    <div>
+                        <Button size="icon" variant="ghost"><PlusIcon /></Button>
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                                <Button size="icon" variant="ghost"><TrashIcon /></Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogTitle>Are you sure you want to delete this?</AlertDialogTitle>
+                                <AlertDialogDescription>This action cannot be undone. This will permanently delete your collection and all subsequent tasks</AlertDialogDescription>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                    <AlertDialogAction
+                                        onClick={() => {
+                                            startTransition(removeCollection)
+                                        }}
+                                    >Proceed</AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                    </div>
+                )}
             </footer>
         </CollapsibleContent>
     </Collapsible>
