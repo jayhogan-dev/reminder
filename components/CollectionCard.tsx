@@ -65,7 +65,16 @@ const CollectionCard = ({ collection }: CollectionCardProps) => {
                 </Button>
             </CollapsibleTrigger>
             <CollapsibleContent className="flex rounded-b-md flex-col dark:bg-neutral-900 shadow-lg">
-                {tasks.length === 0 && <div>No tasks</div>}
+                {tasks.length === 0 && (
+                    <Button 
+                        variant="ghost" 
+                        className="flex items-center justify-center gap-1 p-8 py-12 rounded-none"
+                        onClick={() => setShowCreateModal(true)}
+                    >
+                        <p>There are no tasks yet:</p>
+                        <span className="text-sm bg-clip-text text-cyan-500">Create one</span>
+                    </Button>
+                )}
                 {tasks.length > 0 && (
                     <>
                         <Progress className="rounded-none" value={4} />
