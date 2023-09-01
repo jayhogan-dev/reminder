@@ -13,6 +13,7 @@ import { deleteCollection } from "@/actions/collection"
 import { toast } from "./ui/use-toast"
 import { useRouter } from "next/navigation"
 import CreateTaskDialog from "./CreateTaskDialog"
+import TaskCard from "./TaskCard"
 
 interface CollectionCardProps {
     collection: Collection & {
@@ -80,7 +81,7 @@ const CollectionCard = ({ collection }: CollectionCardProps) => {
                         <Progress className="rounded-none" value={4} />
                         <div className="p-4 gap-3 flex flex-col">
                             {tasks.map((task) => (
-                                <div key={task.id}>{task.content}</div>
+                                <TaskCard key={task.id} task={task}/>
                             ))}
                         </div>
                     </>
