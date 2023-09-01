@@ -26,14 +26,16 @@ export default async function Home() {
           <CreateCollectionBtn />
         </div>
       )}
-      <>
-        <CreateCollectionBtn />
-        <div className="flex flex-col gap-4 mt-6">
-          {collections.map(collection => (
-            <CollectionCard key={collection.id} collection={collection} />
-          ))}
-        </div>
-      </>
+      {collections.length >= 1 && (
+        <>
+          <CreateCollectionBtn />
+          <div className="flex flex-col gap-4 mt-6">
+            {collections.map(collection => (
+              <CollectionCard key={collection.id} collection={collection} />
+            ))}
+          </div>
+        </>
+       )}
     </div>
   )
 }

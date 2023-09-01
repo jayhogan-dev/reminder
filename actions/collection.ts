@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/primsa";
+import { wait } from "@/lib/wait";
 import { createCollectionSchemaType } from "@/schema/createCollection";
 import { currentUser } from "@clerk/nextjs";
 
@@ -26,6 +27,8 @@ export async function deleteCollection(id: number) {
   if (!user) {
     throw new Error("user not found");
   }
+
+  await wait(5000);
 
   await prisma.collection.delete({
     where: {
