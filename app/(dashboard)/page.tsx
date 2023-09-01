@@ -9,6 +9,9 @@ export default async function Home() {
   if (!user) return null;
 
   const collections = await prisma.collection.findMany({
+    include: {
+      tasks: true
+    },
     where: {
       userId: user?.id
     }
