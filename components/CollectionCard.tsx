@@ -2,7 +2,7 @@
 
 import { Collection, Task } from "@prisma/client"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
-import { useState, useTransition } from "react"
+import { useMemo, useState, useTransition } from "react"
 import { Button } from "./ui/button"
 import { CaretDownIcon, CaretUpIcon, TrashIcon } from "@radix-ui/react-icons"
 import { Progress } from "./ui/progress"
@@ -47,6 +47,13 @@ const CollectionCard = ({ collection }: CollectionCardProps) => {
         }
     }
 
+    const tasksDone = useMemo(() => {
+        return collection.tasks.filter((task) => task.done).length
+    }, [collection.tasks])
+
+    const totalTasks = collection.tasks.length 
+    const progress = totalTasks === 0 ? 0 : (tasksDone / totalTasks) * 100
+
   return (
     <>
         <CreateTaskDialog 
@@ -78,7 +85,7 @@ const CollectionCard = ({ collection }: CollectionCardProps) => {
                 )}
                 {tasks.length > 0 && (
                     <>
-                        <Progress className="rounded-none" value={4} />
+                        <Progress className="rounded-none" value={progress} />
                         <div className="p-4 gap-3 flex flex-col">
                             {tasks.map((task) => (
                                 <TaskCard key={task.id} task={task}/>
