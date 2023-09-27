@@ -1,7 +1,7 @@
 import CollectionCard from "@/components/CollectionCard";
 import CreateCollectionBtn from "@/components/CreateCollectionBtn";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { prisma } from "@/lib/primsa";
+import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs";
 
 export default async function Home() {
